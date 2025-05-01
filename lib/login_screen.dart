@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_login_page/home_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_login_page/dashboard_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -34,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Please enter email and password'),
-          backgroundColor: Colors.red[700],
+          backgroundColor: Colors.red.shade700,
           duration: Duration(seconds: 2),
         ),
       );
@@ -62,21 +62,23 @@ class _LoginScreenState extends State<LoginScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Login successful!'),
-            backgroundColor: Colors.green[700],
+            backgroundColor: Colors.green.shade700,
             duration: Duration(seconds: 2),
           ),
         );
         // Navigate to the home screen
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => HomeScreen(userId: userId)),
+          MaterialPageRoute(
+            builder: (context) => DashboardScreen(userId: userId),
+          ),
         );
       } else {
         // Show error message
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Invalid email or password'),
-            backgroundColor: Colors.red[700],
+            backgroundColor: Colors.red.shade700,
             duration: Duration(seconds: 2),
           ),
         );
@@ -86,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(e.toString()),
-          backgroundColor: Colors.red[700],
+          backgroundColor: Colors.red.shade700,
           duration: Duration(seconds: 2),
         ),
       );
@@ -96,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.indigo[50],
+      backgroundColor: Colors.indigo.shade50,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -109,25 +111,25 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: 8),
                   Text(
                     'Welcome back, you\'ve been missed!',
-                    style: TextStyle(color: Colors.grey[700], fontSize: 16),
+                    style: TextStyle(color: Colors.grey.shade700, fontSize: 16),
                   ),
                   SizedBox(height: 40),
                   TextField(
                     controller: emailController,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.indigo[200]!),
+                        borderSide: BorderSide(color: Colors.indigo.shade200),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.indigo[900]!),
+                        borderSide: BorderSide(color: Colors.indigo.shade900),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       fillColor: Colors.grey.shade200,
                       filled: true,
                       labelText: 'Email',
                       hintText: "Enter your Email",
-                      hintStyle: TextStyle(color: Colors.grey[500]),
+                      hintStyle: TextStyle(color: Colors.grey.shade500),
                     ),
                   ),
                   SizedBox(height: 16),
@@ -136,18 +138,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     obscureText: isObscure,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.indigo[200]!),
+                        borderSide: BorderSide(color: Colors.indigo.shade200),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.indigo[900]!),
+                        borderSide: BorderSide(color: Colors.indigo.shade900),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       fillColor: Colors.grey.shade200,
                       filled: true,
                       labelText: 'Password',
                       hintText: "Enter your password",
-                      hintStyle: TextStyle(color: Colors.grey[500]),
+                      hintStyle: TextStyle(color: Colors.grey.shade500),
                       suffixIcon: IconButton(
                         icon: Icon(
                           isObscure ? Icons.visibility : Icons.visibility_off,
@@ -162,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       handleLogin();
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.indigo[800],
+                      backgroundColor: Colors.indigo.shade800,
                       padding: EdgeInsets.symmetric(
                         horizontal: 100,
                         vertical: 20,

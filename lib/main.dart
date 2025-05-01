@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_login_page/home_screen.dart';
+import 'package:flutter_login_page/dashboard_screen.dart';
 import 'package:flutter_login_page/login_screen.dart';
 
 void main() {
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(userId: '1'),
+      home: DashboardScreen(userId: '1'),
     );
   }
 }
