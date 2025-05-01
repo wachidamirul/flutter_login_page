@@ -3,8 +3,8 @@ import 'package:flutter_login_page/login_screen.dart';
 import 'package:flutter_login_page/profile_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key, required this.nama});
-  final String nama;
+  const HomeScreen({super.key, required this.userId});
+  final String userId;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Hi ${nama}, Welcome to the Home Screen",
+                "Hi ${userId}, Welcome to the Home Screen",
                 style: TextStyle(color: Colors.grey[700], fontSize: 16),
               ),
               ElevatedButton(

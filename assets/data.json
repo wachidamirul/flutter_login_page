@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "age": 30,
+    "email": "jhon@mail.test",
+    "address": {
+      "street": "123 Main St",
+      "city": "Anytown",
+      "state": "CA",
+      "zip": "12345"
+    },
+    "profilePicture": "https://example.com/profile.jpg",
+    "coverPicture": "https://example.com/cover.jpg",
+    "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "interests": ["reading", "gaming", "hiking"],
+    "settings": {
+      "theme": "dark"
+    },
+    "password": "123456"
+  },
+  {
+    "id": 2,
+    "name": "Jane Smith",
+    "age": 25,
+    "email": "jane@mail.test",
+    "address": {
+      "street": "456 Elm St",
+      "city": "Othertown",
+      "state": "NY",
+      "zip": "67890"
+    },
+    "profilePicture": "https://example.com/profile2.jpg",
+    "coverPicture": "https://example.com/cover2.jpg",
+    "bio": "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "interests": ["cooking", "traveling", "photography"],
+    "settings": {
+      "theme": "light"
+    },
+    "password": "123456"
+  }
+]
