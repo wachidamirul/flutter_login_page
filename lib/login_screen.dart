@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_login_page/home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  LoginScreen({super.key});
+  TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +24,7 @@ class LoginScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
                 child: TextField(
+                  controller: emailController,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.indigo[200]!),
@@ -76,6 +79,13 @@ class LoginScreen extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   // Handle login action
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder:
+                          (context) => HomeScreen(nama: emailController.text),
+                    ),
+                  );
                 },
                 child: Container(
                   padding: const EdgeInsets.all(20),
