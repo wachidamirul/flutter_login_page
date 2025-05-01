@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_login_page/login_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key, required this.userId});
@@ -57,8 +58,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:
-          isDarkMode ? Colors.indigo.shade900 : Colors.indigo.shade50,
+      backgroundColor: isDarkMode ? Color(0xFF181818) : Colors.indigo.shade50,
       body: SafeArea(
         child: FutureBuilder(
           future: loadData(),
@@ -99,21 +99,40 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget buildCoverImage() {
     return Container(
       height: coverHeight,
-      color: Colors.grey.shade300,
+      color: isDarkMode ? Colors.black45 : Colors.indigo.shade100,
       child: Image.network(
         coverPicture,
         width: double.infinity,
         height: coverHeight,
         fit: BoxFit.cover,
+        loadingBuilder: (context, child, loadingProgress) {
+          if (loadingProgress == null) return child;
+          return Center(
+            child: CircularProgressIndicator(
+              value:
+                  loadingProgress.expectedTotalBytes != null
+                      ? loadingProgress.cumulativeBytesLoaded /
+                          (loadingProgress.expectedTotalBytes ?? 1)
+                      : null,
+            ),
+          );
+        },
       ),
     );
   }
 
   Widget buildProfileImage() {
     return CircleAvatar(
-      radius: profileHeight / 2,
-      backgroundColor: Colors.grey.shade200,
-      backgroundImage: NetworkImage(profilePicture),
+      radius: profileHeight / 2 + 8, // Add extra radius for the border
+      backgroundColor:
+          isDarkMode
+              ? Color(0xFF181818) // Dark mode background color
+              : Colors.indigo.shade50, // Border color
+      child: CircleAvatar(
+        radius: profileHeight / 2,
+        backgroundColor: isDarkMode ? Colors.black : Colors.indigo.shade100,
+        backgroundImage: NetworkImage(profilePicture),
+      ),
     );
   }
 
@@ -123,7 +142,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 8),
+          const SizedBox(height: 32),
           Center(
             child: Column(
               children: [
@@ -132,7 +151,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w600,
-                    color: isDarkMode ? Colors.white70 : Colors.black87,
+                    color: isDarkMode ? Colors.white : Colors.black87,
                   ),
                 ),
                 Text(
@@ -150,52 +169,89 @@ class _DashboardScreenState extends State<DashboardScreen> {
             color: isDarkMode ? Colors.indigo.shade700 : Colors.grey.shade400,
           ),
           const SizedBox(height: 16),
-          Text(
-            "About",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-              color: isDarkMode ? Colors.white70 : Colors.black87,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            userAbout,
-            textAlign: TextAlign.justify,
-            style: TextStyle(
-              color: isDarkMode ? Colors.white70 : Colors.black87,
-            ),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            "Settings",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-              color: isDarkMode ? Colors.white70 : Colors.black87,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Change Theme to ${isDarkMode ? 'Light' : 'Dark'} Mode",
-                style: TextStyle(
-                  color: isDarkMode ? Colors.white70 : Colors.black87,
-                ),
-              ),
-              IconButton(
-                icon: Icon(
-                  isDarkMode ? Icons.light_mode : Icons.dark_mode,
-                  color: isDarkMode ? Colors.white70 : Colors.black87,
-                ),
-                onPressed: changeTheme,
-              ),
-            ],
-          ),
+          buildAboutSection(),
+          const SizedBox(height: 32),
+          buildSettingsSection(),
+          const SizedBox(height: 32),
+          buildLogoutButton(),
           const SizedBox(height: 16),
         ],
+      ),
+    );
+  }
+
+  Widget buildAboutSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "About",
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w700,
+            color: isDarkMode ? Colors.white : Colors.black87,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          userAbout,
+          style: TextStyle(color: isDarkMode ? Colors.white70 : Colors.black87),
+        ),
+      ],
+    );
+  }
+
+  Widget buildSettingsSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Settings",
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w700,
+            color: isDarkMode ? Colors.white : Colors.black87,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "Change Theme to ${isDarkMode ? 'Light' : 'Dark'} Mode",
+              style: TextStyle(
+                color: isDarkMode ? Colors.white70 : Colors.black87,
+              ),
+            ),
+            IconButton(
+              icon: Icon(
+                isDarkMode ? Icons.light_mode : Icons.dark_mode,
+                color: isDarkMode ? Colors.white70 : Colors.black87,
+              ),
+              onPressed: changeTheme,
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget buildLogoutButton() {
+    return ElevatedButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+        );
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: isDarkMode ? Colors.red.shade700 : Colors.red.shade800,
+        padding: EdgeInsets.symmetric(horizontal: 100, vertical: 20),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [Text("Logout", style: TextStyle(color: Colors.white))],
       ),
     );
   }
