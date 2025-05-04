@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_login_page/login_screen.dart';
 import 'package:flutter_login_page/splash_screen.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';

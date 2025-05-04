@@ -3,16 +3,18 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_page/login_screen.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({super.key, required this.userId});
-  final String userId;
+  const DashboardScreen({super.key});
 
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  final box = GetStorage();
+
   bool isDarkMode = false;
   double coverHeight = 280;
   double profileHeight = 144;
@@ -26,22 +28,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   void initState() {
     super.initState();
+    isDarkMode = box.read('isDarkMode') ?? false;
     loadData(); // Load data when the widget is initialized
   }
 
   changeTheme() {
     setState(() {
       isDarkMode = !isDarkMode;
+      box.write('isDarkMode', isDarkMode);
     });
   }
 
   // Load data from JSON file with the same userId
   Future<void> loadData() async {
     try {
+      String userId = box.read('userId') ?? '';
       String data = await rootBundle.loadString('assets/data.json');
       List<dynamic> users = jsonDecode(data);
       for (var user in users) {
-        if (user['id'].toString() == widget.userId) {
+        if (user['id'].toString() == userId) {
           userName = user['name'];
           userBio = user['bio'];
           userAbout = user['about'];
@@ -240,7 +245,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget buildLogoutButton() {
     return ElevatedButton(
       onPressed: () {
-        Get.to(LoginScreen());
+        box.remove("userId");
+        box.remove("isDarkMode");
+        Get.offAll(LoginScreen());
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: isDarkMode ? Colors.red.shade700 : Colors.red.shade800,

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_page/dashboard_screen.dart';
+import 'package:get_storage/get_storage.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -25,6 +26,9 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController passwordController = TextEditingController();
 
   handleLogin() async {
+    // Initialize GetStorage
+    final box = GetStorage();
+
     // Get the values from the text fields
     String email = emailController.text;
     String password = passwordController.text;
@@ -67,10 +71,12 @@ class _LoginScreenState extends State<LoginScreen> {
             duration: Duration(seconds: 2),
           ),
         );
-        Get.to(
-          DashboardScreen(userId: userId),
-          duration: Duration(milliseconds: 500),
-        );
+
+        // Store the user ID in GetStorage
+        box.write('userId', userId);
+
+        // Navigate to the dashboard screen
+        Get.to(DashboardScreen(), duration: Duration(milliseconds: 500));
       } else {
         // Show error message
         ScaffoldMessenger.of(context).showSnackBar(
