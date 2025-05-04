@@ -5,14 +5,14 @@ import 'package:flutter_login_page/login_screen.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({super.key});
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
 
   @override
-  State<DashboardScreen> createState() => _DashboardScreenState();
+  State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen> {
+class _ProfileScreenState extends State<ProfileScreen> {
   final box = GetStorage();
 
   bool isDarkMode = false;
@@ -65,22 +65,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: isDarkMode ? Color(0xFF181818) : Colors.indigo.shade50,
-      body: SafeArea(
-        child: FutureBuilder(
-          future: loadData(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
-            } else {
-              return ListView(
-                padding: EdgeInsets.zero,
-                children: [buildTop(), buildContent()],
-              );
-            }
-          },
-        ),
+      body: FutureBuilder(
+        future: loadData(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else {
+            return ListView(
+              padding: EdgeInsets.zero,
+              children: [buildTop(), buildContent()],
+            );
+          }
+        },
       ),
     );
   }
