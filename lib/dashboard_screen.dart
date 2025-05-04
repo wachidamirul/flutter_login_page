@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_page/login_screen.dart';
+import 'package:get/get.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key, required this.userId});
@@ -239,10 +240,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget buildLogoutButton() {
     return ElevatedButton(
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => LoginScreen()),
-        );
+        Get.to(LoginScreen());
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: isDarkMode ? Colors.red.shade700 : Colors.red.shade800,

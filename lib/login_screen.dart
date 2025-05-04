@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_page/dashboard_screen.dart';
 
@@ -66,12 +67,9 @@ class _LoginScreenState extends State<LoginScreen> {
             duration: Duration(seconds: 2),
           ),
         );
-        // Navigate to the home screen
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DashboardScreen(userId: userId),
-          ),
+        Get.to(
+          DashboardScreen(userId: userId),
+          duration: Duration(milliseconds: 500),
         );
       } else {
         // Show error message
@@ -107,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: EdgeInsets.all(16),
               child: Column(
                 children: [
-                  Icon(Icons.lock, size: 100),
+                  Image.asset('assets/logo.png', width: 100, height: 100),
                   SizedBox(height: 8),
                   Text(
                     'Welcome back, you\'ve been missed!',
