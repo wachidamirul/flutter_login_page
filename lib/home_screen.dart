@@ -1,6 +1,7 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_page/navbar_controller.dart';
+import 'package:flutter_login_page/note_screen.dart';
 import 'package:flutter_login_page/profile_screen.dart';
 import 'package:flutter_login_page/theme_controller.dart';
 import 'package:get/get.dart';
@@ -17,8 +18,14 @@ class _HomeScreenState extends State<HomeScreen> {
   final navbarController = Get.put(NavbarController());
   final iconList = <IconData>[Icons.home, Icons.person];
   final screenList = <Widget>[
-    const Center(child: Text('Home')),
+    Center(
+      child: Text(
+        'Home',
+        style: TextStyle(fontSize: 24, color: Colors.indigo.shade500),
+      ),
+    ),
     const ProfileScreen(),
+    const NoteScreen(),
   ];
 
   @override
@@ -33,17 +40,18 @@ class _HomeScreenState extends State<HomeScreen> {
           children: screenList,
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            // Handle floating action button press
-          },
+          onPressed: () => navbarController.setIndex(2),
+          backgroundColor: Colors.indigo.shade500,
           shape: const CircleBorder(),
-          child: const Icon(Icons.add_rounded),
+          child: Icon(Icons.add_rounded, color: Colors.white),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: AnimatedBottomNavigationBar(
           backgroundColor: isDarkMode ? Color(0xFF1D1E24) : Colors.white,
-          activeColor: isDarkMode ? Colors.indigo.shade300 : Colors.black,
-          inactiveColor: isDarkMode ? Colors.white70 : Colors.black54,
+          activeColor:
+              isDarkMode ? Colors.indigo.shade300 : Colors.indigo.shade800,
+          inactiveColor:
+              isDarkMode ? Colors.indigo.shade100 : Colors.indigo.shade200,
           icons: iconList,
           gapLocation: GapLocation.center,
           notchSmoothness: NotchSmoothness.defaultEdge,
