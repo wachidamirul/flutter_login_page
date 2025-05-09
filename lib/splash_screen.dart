@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login_page/home_screen.dart';
-import 'package:flutter_login_page/profile_screen.dart';
 import 'package:flutter_login_page/login_screen.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';

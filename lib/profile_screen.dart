@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_page/login_screen.dart';
+import 'package:flutter_login_page/theme_controller.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -14,8 +15,9 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final box = GetStorage();
+  final themeController = Get.put(ThemeController());
+  late bool isDarkMode;
 
-  bool isDarkMode = false;
   double coverHeight = 280;
   double profileHeight = 144;
 
@@ -28,14 +30,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    isDarkMode = box.read('isDarkMode') ?? false;
+    isDarkMode = themeController.isDarkMode.value;
     loadData(); // Load data when the widget is initialized
   }
 
   changeTheme() {
+    themeController.setTheme(!isDarkMode);
     setState(() {
       isDarkMode = !isDarkMode;
-      box.write('isDarkMode', isDarkMode);
     });
   }
 
@@ -178,7 +180,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           buildSettingsSection(),
           const SizedBox(height: 32),
           buildLogoutButton(),
-          const SizedBox(height: 16),
+          const SizedBox(height: 40),
         ],
       ),
     );
