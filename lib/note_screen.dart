@@ -20,7 +20,7 @@ class _NoteScreenState extends State<NoteScreen> {
         backgroundColor: isDarkMode ? Color(0xFF181818) : Colors.indigo.shade50,
         body: Center(
           child: Text(
-            'This is the Note Screen',
+            'Note',
             style: TextStyle(fontSize: 24, color: Colors.indigo.shade500),
           ),
         ),

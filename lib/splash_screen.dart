@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_login_page/home_screen.dart';
+import 'package:flutter_login_page/navbar_screen.dart';
 import 'package:flutter_login_page/login_screen.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
       // If the user is logged in, navigate to the dashboard screen
       if (userId.isNotEmpty) {
         // Get.off(ProfileScreen());
-        Get.off(HomeScreen());
+        Get.off(NavbarScreen());
       } else {
         // If the user is not logged in, navigate to the login screen
         Get.off(LoginScreen());

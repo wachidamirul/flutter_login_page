@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
+import 'package:flutter_login_page/navbar_screen.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_login_page/profile_screen.dart';
 import 'package:get_storage/get_storage.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
         box.write('userId', userId);
 
         // Navigate to the dashboard screen
-        Get.to(ProfileScreen(), duration: Duration(milliseconds: 500));
+        Get.to(NavbarScreen(), duration: Duration(milliseconds: 500));
       } else {
         // Show error message
         ScaffoldMessenger.of(context).showSnackBar(
